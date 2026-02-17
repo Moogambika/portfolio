@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moogambika Govindaraj - Data Science & ML Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #141b34;
+            --bg-card: #1a2238;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #b837ff;
+            --accent-pink: #ff2e97;
+            --accent-green: #00ffb3;
+            --accent-orange: #ff8c42;
+            --text-primary: #ffffff;
+            --text-secondary: #b8c5d6;
+            --text-muted: #7a8ba0;
+        }
+
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Gradient Background */
+        .gradient-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(184, 55, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 46, 151, 0.1) 0%, transparent 50%);
+        }
+
+        .noise {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::before { width: 100%; }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content { flex: 1; }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(184, 55, 255, 0.1);
+            border: 1px solid rgba(184, 55, 255, 0.3);
+            border-radius: 50px;
+            color: var(--accent-purple);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Experience Cards */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 3rem;
+            opacity: 0;
+            animation: fadeInLeft 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg-primary), 0 0 20px var(--accent-cyan);
+        }
+
+        .experience-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateX(10px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .exp-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .exp-company {
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .exp-duration {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        .exp-location {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .exp-achievements {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .exp-achievements li {
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .exp-achievements li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-size: 1.2rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover::before { transform: scaleX(1); }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Special top-bar colors for new project cards */
+        .project-card.green-bar::before {
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan), var(--accent-purple));
+        }
+
+        .project-card.orange-bar::before {
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink), var(--accent-purple));
+        }
+
+        .project-card.green-bar:hover {
+            border-color: rgba(0, 255, 179, 0.35);
+            box-shadow: 0 30px 80px rgba(0, 255, 179, 0.15);
+        }
+
+        .project-card.orange-bar:hover {
+            border-color: rgba(255, 140, 66, 0.35);
+            box-shadow: 0 30px 80px rgba(255, 140, 66, 0.15);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 4px 12px currentColor);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .project-link.green-link {
+            background: rgba(0, 255, 179, 0.08);
+            border-color: rgba(0, 255, 179, 0.3);
+            color: var(--accent-green);
+        }
+
+        .project-link.green-link:hover {
+            background: rgba(0, 255, 179, 0.15);
+        }
+
+        .project-link.orange-link {
+            background: rgba(255, 140, 66, 0.08);
+            border-color: rgba(255, 140, 66, 0.3);
+            color: var(--accent-orange);
+        }
+
+        .project-link.orange-link:hover {
+            background: rgba(255, 140, 66, 0.15);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* Feature pills for new project cards */
+        .feature-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-pill {
+            padding: 0.3rem 0.85rem;
+            background: rgba(0, 255, 179, 0.07);
+            border: 1px solid rgba(0, 255, 179, 0.2);
+            border-radius: 50px;
+            color: var(--accent-green);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .feature-pill.orange {
+            background: rgba(255, 140, 66, 0.07);
+            border-color: rgba(255, 140, 66, 0.2);
+            color: var(--accent-orange);
+        }
+
+        /* Performance metrics mini-table */
+        .metrics-row {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .metric-chip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            min-width: 70px;
+        }
+
+        .metric-value {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .metric-value.orange { color: var(--accent-orange); }
+
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 0.2rem;
+            font-weight: 500;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tech-badge {
+            padding: 0.4rem 1rem;
+            background: rgba(184, 55, 255, 0.1);
+            border: 1px solid rgba(184, 55, 255, 0.3);
+            border-radius: 50px;
+            color: var(--accent-purple);
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .tech-badge.green {
+            background: rgba(0, 255, 179, 0.07);
+            border-color: rgba(0, 255, 179, 0.25);
+            color: var(--accent-green);
+        }
+
+        .tech-badge.orange {
+            background: rgba(255, 140, 66, 0.07);
+            border-color: rgba(255, 140, 66, 0.25);
+            color: var(--accent-orange);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--bg-card);
+            border-radius: 30px;
+            padding: 4rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon { font-size: 1.5rem; }
+
+        .contact-info a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        footer p { margin-bottom: 0.5rem; }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero { padding-top: 6rem; }
+            .hero h1 { font-size: 3.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .timeline { padding-left: 1rem; }
+            .timeline-item { padding-left: 2rem; }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero-buttons { flex-direction: column; }
+            .contact-methods { flex-direction: column; align-items: stretch; }
+            .contact-section { padding: 2.5rem 1.5rem; }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* New badge */
+        .new-badge {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            border-radius: 50px;
+            color: #0a0e27;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-left: 0.6rem;
+            vertical-align: middle;
+        }
+
+        .new-badge.orange-badge {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink));
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    <div class="noise"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">MG</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="hero-tag">👋 Hello, I'm Moogambika Govindaraj</div>
+            <h1>
+                <span class="gradient-text">Data Science</span><br>
+                & ML Engineer
+            </h1>
+            <p class="hero-subtitle">
+                Passionate about building intelligent AI/ML solutions using Python, deep learning, NLP, and cloud technologies. 
+                Transforming data into actionable insights and innovative applications.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work →</a>
+                <a href="#contact" class="btn btn-outline">Let's Connect</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="section-header reveal">
+            <span class="section-tag">Career Journey</span>
+            <h2 class="section-title">Experience</h2>
+            <p class="section-subtitle">My professional journey in tech and data science</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-title">Support Engineer</h3>
+                            <p class="exp-company">AmulyaInfotech India Pvt Ltd.</p>
+                            <p class="exp-location">Coimbatore, Tamil Nadu</p>
+                        </div>
+                        <div class="exp-duration">Jan 2025 - Present</div>
+                    </div>
+                    <ul class="exp-achievements">
+                        <li>Analyzing and resolving customer issues using enterprise ticketing systems</li>
+                        <li>Strengthening problem-solving and documentation skills in a fast-paced environment</li>
+                        <li>Developing business-focused analytical capabilities to improve customer satisfaction</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-title">ML/AI Intern</h3>
+                            <p class="exp-company">Cloud Armee</p>
+                        </div>
+                        <div class="exp-duration">
+                            June 2024 - Dec 2024<br>
+                            <span style="color: var(--text-muted);">6 months</span>
+                        </div>
+                    </div>
+                    <ul class="exp-achievements">
+                        <li>Created a diabetes prediction application using Python and machine learning algorithms</li>
+                        <li>Developed an intelligent chatbot with Amazon Lex, AWS Lambda and Slack integration</li>
+                        <li>Completed Sentiment Analysis project using Amazon Food Reviews Dataset and VADER</li>
+                        <li>Developed age and gender detection system using deep learning in Python</li>
+                        <li>Created a facial recognition system with OpenCV and Python</li>
+                        <li>Built a serverless text-to-speech application using Amazon Polly</li>
+                        <li>Developed an automated video monitoring system with AWS IoT and AI/ML services</li>
+                        <li>Created a Multilingual Text-to-Speech Converter using Python, Google Translate, and Tkinter</li>
+                        <li>Implemented audio transcription and translation into Tamil, Malayalam, and Hindi</li>
+                        <li>Developed a real-time quiz web application using HTML, CSS, JavaScript and Node.js</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-title">Data Science Course</h3>
+                            <p class="exp-company">GUVI</p>
+                        </div>
+                        <div class="exp-duration">6 Months Program</div>
+                    </div>
+                    <ul class="exp-achievements">
+                        <li>Completed comprehensive 6-month intensive data science program</li>
+                        <li>Developed 5 industry-relevant projects covering ML, NLP, and data visualization</li>
+                        <li>Gained hands-on experience with Python, Machine Learning, PowerBI, Streamlit, and modern data science tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-header reveal">
+            <span class="section-tag">Portfolio</span>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Real-world applications showcasing my data science and ML expertise</p>
+        </div>
+
+        <div class="projects-grid">
+
+            <!-- Existing Project 1 -->
+            <div class="project-card reveal">
+                <div class="project-header">
+                    <div class="project-icon">🎬</div>
+                    <a href="https://github.com/Moogambika/IMDB_2024_data-scraping.git" class="project-link" target="_blank">View Code →</a>
+                </div>
+                <h3 class="project-title">IMDb 2024 Movies Analysis</h3>
+                <p class="project-description">
+                    Comprehensive data analysis project exploring 2024 IMDb movies, uncovering trends in ratings, genres, 
+                    box office performance, and audience preferences using advanced Python data science techniques.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Pandas</span>
+                    <span class="tech-badge">Web Scraping</span>
+                    <span class="tech-badge">Data Viz</span>
+                </div>
+            </div>
+
+            <!-- Existing Project 2 -->
+            <div class="project-card reveal">
+                <div class="project-header">
+                    <div class="project-icon">📊</div>
+                    <a href="https://github.com/Moogambika/Stock-Analysis.git" class="project-link" target="_blank">View Code →</a>
+                </div>
+                <h3 class="project-title">Stock Analysis Dashboard</h3>
+                <p class="project-description">
+                    Interactive PowerBI dashboard for comprehensive stock market analysis featuring real-time data visualization, 
+                    trend analysis, performance metrics, and predictive insights for informed investment decisions.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-badge">PowerBI</span>
+                    <span class="tech-badge">DAX</span>
+                    <span class="tech-badge">Data Viz</span>
+                    <span class="tech-badge">Finance</span>
+                </div>
+            </div>
+
+            <!-- Existing Project 3 -->
+            <div class="project-card reveal">
+                <div class="project-header">
+                    <div class="project-icon">🍕</div>
+                    <a href="https://github.com/Moogambika/NutriClass-Food-Classification.git" class="project-link" target="_blank">View Code →</a>
+                </div>
+                <h3 class="project-title">NutriClass Food Classification</h3>
+                <p class="project-description">
+                    Machine learning classification system trained on nutritional categorical data to predict food categories. 
+                    Compared 6 ML algorithms and achieved 99% accuracy using XGBoost for optimal food classification.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">XGBoost</span>
+                    <span class="tech-badge">Scikit-learn</span>
+                    <span class="tech-badge">ML Algorithms</span>
+                </div>
+            </div>
+
+            <!-- Existing Project 4 -->
+            <div class="project-card reveal">
+                <div class="project-header">
+                    <div class="project-icon">🍽️</div>
+                    <a href="https://github.com/Moogambika/Swiggy-Restaurant-Recommendation-System.git" class="project-link" target="_blank">View Code →</a>
+                </div>
+                <h3 class="project-title">Restaurant Recommendation System</h3>
+                <p class="project-description">
+                    Intelligent restaurant recommendation engine built using cosine similarity and collaborative filtering algorithms. 
+                    Deployed with Streamlit for a seamless, interactive user experience.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Streamlit</span>
+                    <span class="tech-badge">Cosine Similarity</span>
+                    <span class="tech-badge">RecSys</span>
+                </div>
+            </div>
+
+            <!-- Existing Project 5 -->
+            <div class="project-card reveal">
+                <div class="project-header">
+                    <div class="project-icon">💬</div>
+                    <a href="https://github.com/Moogambika/Business-Reputation-Insights-Analyzer.git" class="project-link" target="_blank">View Code →</a>
+                </div>
+                <h3 class="project-title">Business Reputation Insights Analyzer</h3>
+                <p class="project-description">
+                    Cutting-edge NLP and LLM-powered application that analyzes business reviews and customer feedback 
+                    to extract sentiment insights and generate actionable reputation metrics for data-driven decision making.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">NLP</span>
+                    <span class="tech-badge">LLM</span>
+                    <span class="tech-badge">Sentiment Analysis</span>
+                    <span class="tech-badge">BERTopic</span>
+                </div>
+            </div>
+
+            <!-- NEW Project 6: Multilingual Plagiarism Detector -->
+            <div class="project-card green-bar reveal">
+                <div class="project-header">
+                    <div class="project-icon">🌍</div>
+                    <a href="https://github.com/Moogambika/multilingual-plagiarism-detector" class="project-link green-link" target="_blank">View Code →</a>
+                </div>
+                <h3 class="project-title">
+                    Multilingual AI Plagiarism Detector
+                    <span class="new-badge">New</span>
+                </h3>
+                <p class="project-description">
+                    Production-ready plagiarism detection system supporting 50+ languages including Tamil, Hindi, English, Telugu, Bengali, Spanish, French, and Chinese. Detects both direct and cross-language plagiarism with high semantic accuracy using Hugging Face multilingual sentence transformers.
+                </p>
+
+                <div class="metrics-row">
+                    <div class="metric-chip">
+                        <span class="metric-value">50+</span>
+                        <span class="metric-label">Languages</span>
+                    </div>
+                    <div class="metric-chip">
+                        <span class="metric-value">118M</span>
+                        <span class="metric-label">Parameters</span>
+                    </div>
+                    <div class="metric-chip">
+                        <span class="metric-value">384</span>
+                        <span class="metric-label">Embed Dims</span>
+                    </div>
+                    <div class="metric-chip">
+                        <span class="metric-value">✅</span>
+                        <span class="metric-label">Cross-Lang</span>
+                    </div>
+                </div>
+
+                <div class="feature-pills">
+                    <span class="feature-pill">🔄 Cross-Language Matching</span>
+                    <span class="feature-pill">📄 PDF & TXT Support</span>
+                    <span class="feature-pill">⚡ Real-Time Analysis</span>
+                    <span class="feature-pill">🎯 Adjustable Threshold</span>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-badge green">Python</span>
+                    <span class="tech-badge green">HuggingFace</span>
+                    <span class="tech-badge green">PyTorch</span>
+                    <span class="tech-badge green">Gradio</span>
+                    <span class="tech-badge green">Scikit-learn</span>
+                    <span class="tech-badge green">PyPDF2</span>
+                </div>
+            </div>
+
+            <!-- NEW Project 7: Enhanced Facial Analysis System -->
+            <div class="project-card orange-bar reveal">
+                <div class="project-header">
+                    <div class="project-icon">🎭</div>
+                    <a href="https://github.com/Moogambika/enhanced-facial-analysis" class="project-link orange-link" target="_blank">View Code →</a>
+                </div>
+                <h3 class="project-title">
+                    Enhanced Facial Analysis System
+                    <span class="new-badge orange-badge">New</span>
+                </h3>
+                <p class="project-description">
+                    Production-ready real-time AI system for emotion, age & gender recognition with a two-stage detection pipeline — first verifying real human presence via YOLOv8 before running facial analysis, reducing false positives from TVs, posters, and mannequins by 90%.
+                </p>
+
+                <div class="metrics-row">
+                    <div class="metric-chip">
+                        <span class="metric-value orange">95%+</span>
+                        <span class="metric-label">Person Det.</span>
+                    </div>
+                    <div class="metric-chip">
+                        <span class="metric-value orange">87%</span>
+                        <span class="metric-label">Emotion Acc.</span>
+                    </div>
+                    <div class="metric-chip">
+                        <span class="metric-value orange">±5yr</span>
+                        <span class="metric-label">Age MAE</span>
+                    </div>
+                    <div class="metric-chip">
+                        <span class="metric-value orange">30fps</span>
+                        <span class="metric-label">Real-Time</span>
+                    </div>
+                </div>
+
+                <div class="feature-pills">
+                    <span class="feature-pill orange">🔍 2-Stage Detection</span>
+                    <span class="feature-pill orange">🛡️ Anti-Spoofing</span>
+                    <span class="feature-pill orange">🌐 Dual Interface</span>
+                    <span class="feature-pill orange">😊 7 Emotions</span>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-badge orange">Python</span>
+                    <span class="tech-badge orange">YOLOv8</span>
+                    <span class="tech-badge orange">DeepFace</span>
+                    <span class="tech-badge orange">OpenCV</span>
+                    <span class="tech-badge orange">TensorFlow</span>
+                    <span class="tech-badge orange">Gradio</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-section reveal">
+            <div class="contact-content">
+                <h2 class="contact-title">Let's Connect</h2>
+                <p class="contact-subtitle">
+                    I'm always interested in hearing about new opportunities, projects, or just having a chat about 
+                    data science and machine learning. Feel free to reach out!
+                </p>
+                
+                <div class="contact-methods">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-info">
+                            <span class="contact-label">Email</span>
+                            <a href="mailto:moogambikagovindaraj@gmail.com">moogambikagovindaraj@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-info">
+                            <span class="contact-label">Phone</span>
+                            <a href="tel:+917339545499">+91 7339545499</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <a href="mailto:moogambikagovindaraj@gmail.com" class="btn btn-primary">Send Me an Email →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Moogambika Govindaraj</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Built with passion for AI/ML and Data Science</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
